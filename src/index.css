@@ -28,3 +28,64 @@ body {
   background: var(--color-paper);
   color: var(--color-ink);
 }
+
+
+
+
+.spinner {
+    --d: 24.6px;
+    width: 4.5px;
+    height: 4.5px;
+    border-radius: 50%;
+    color: #474bff;
+    box-shadow: calc(1*var(--d))      calc(0*var(--d))     0 0,
+           calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1.1px,
+           calc(0*var(--d))      calc(1*var(--d))     0 2.2px,
+           calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3.4px,
+           calc(-1*var(--d))     calc(0*var(--d))     0 4.5px,
+           calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5.6px,
+           calc(0*var(--d))      calc(-1*var(--d))    0 6.7px;
+    animation: spinner-a90wxe 1s infinite steps(8);
+ }
+ 
+ @keyframes spinner-a90wxe {
+    100% {
+       transform: rotate(1turn);
+    }
+ }
+
+ /* Add this CSS to index.css or App.css */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(200,200,200,0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(100,100,255,0.6);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100,100,255,0.8);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100,100,255,0.6) rgba(200,200,200,0.1);
+}
