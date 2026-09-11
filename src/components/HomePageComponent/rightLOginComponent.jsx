@@ -20,7 +20,7 @@ function RightLoginComponent({
   const [error, setError] = useState("");
 
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   setError("");
@@ -41,24 +41,36 @@ function RightLoginComponent({
 
     console.log("Login response:", response.data);
 
-    const token = response.data.token;
+    const { token, user } = response.data;
 
+    // Check token
     if (!token) {
       setError("Token was not received from server.");
       return;
     }
 
-    // Store JWT token
-    localStorage.setItem("token", token);
+    // Check user and role
+    if (!user || !user.role) {
+      setError("User role was not received from server.");
+      return;
+    }
 
-    // Navigate after successful login
+    // Store authentication data
+    localStorage.setItem("KD_COMPLEX_TOKEN", token);
+    localStorage.setItem("KD_COMPLEX_ROLE", user.role);
+    localStorage.setItem("KD_COMPLEX_USER", JSON.stringify(user));
+
+    console.log("Logged in role:", user.role);
+
+    // Go to common dashboard route
     navigate("/dashboard");
+
   } catch (error) {
     console.error("Login failed:", error);
 
     setError(
       error.response?.data?.message ||
-        "Login failed. Please check your credentials."
+      "Login failed. Please check your credentials."
     );
   }
 };
@@ -177,16 +189,15 @@ function RightLoginComponent({
 
             <a
               href="#"
-              onClick={(e) => {
-                e.preventDefault();
-
-                if (!loading) {
-                  console.log("Forgot password clicked");
-                }
+              onClick={() => {
+                
+                navigate("/forget-password");
               }}
               className={`text-ink-soft underline hover:text-stamp ${
                 loading ? "pointer-events-none opacity-60" : ""
-              }`}
+              }` }
+              
+              
             >
               Forgot password?
             </a>
